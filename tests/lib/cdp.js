@@ -11,7 +11,7 @@ const { spawn } = require('child_process');
 const fs = require('fs');
 const path = require('path');
 
-const CHROME = process.env.CHROME || 'C:/Program Files/Google/Chrome/Application/chrome.exe';
+const CHROME = process.env.CHROME || (process.platform === 'win32' ? 'C:/Program Files/Google/Chrome/Application/chrome.exe' : '/usr/bin/google-chrome');
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 
 class Page {

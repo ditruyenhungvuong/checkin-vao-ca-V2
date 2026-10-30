@@ -30,12 +30,11 @@ window.APP_CONFIG = {
   LOOKUP_TIMEOUT_MS: 1500,
   LOOKUP_DEBOUNCE_MS: 400,
 
-  /* Ảnh capybara dùng chung với các app cũ. Muốn chạy offline: tải 16 ảnh vào
-     thư mục assets/ của app rồi đổi thành 'assets/' (không cần sửa gì khác).
-     Gợi ý (anh Thông quyết, chưa đổi): dùng CDN jsDelivr cho cùng repo, trình duyệt cache 7 ngày,
-     tải nhanh hơn raw.githubusercontent: 'https://cdn.jsdelivr.net/gh/ditruyenhungvuong/nhatkymebau@main/'.
+  /* Ảnh capybara nằm ngay trong thư mục assets/ của app (16 ảnh đã nén ≤ 100 KB, cạnh dài 400 px,
+     gốc từ repo nhatkymebau 0,8–1,7 MB/ảnh). Đường dẫn tương đối nên chạy được cả local lẫn GitHub Pages.
+     Muốn dùng lại ảnh gốc: đổi thành 'https://raw.githubusercontent.com/ditruyenhungvuong/nhatkymebau/main/'.
      Đổi ở đây thì đổi luôn href của <link rel="preload"> trong index.html. */
-  ASSET_BASE: 'https://raw.githubusercontent.com/ditruyenhungvuong/nhatkymebau/main/',
+  ASSET_BASE: 'assets/',
 
   /* Bản sao dự phòng trong localStorage, giữ tối đa BACKUP_MAX lượt gần nhất. */
   BACKUP_KEY: 'checkin_vao_ca_backup',

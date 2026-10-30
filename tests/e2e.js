@@ -150,14 +150,18 @@ async function openApp(opts) {
   const requests = [];
   page.on('Network.requestWillBeSent', p => requests.push({ url: p.request.url, method: p.request.method, headers: p.request.headers, postData: p.request.postData }));
 
-  /* Ảnh capybara + Google Fonts: trả ảnh 1×1 / CSS rỗng, hoặc làm hỏng ảnh nếu o.failImages */
-  await page.send('Fetch.enable', { patterns: [{ urlPattern: '*raw.githubusercontent.com/*' }, { urlPattern: '*fonts.googleapis.com/*' }, { urlPattern: '*fonts.gstatic.com/*' }] });
+  /* Ảnh capybara + Google Fonts: trả ảnh 1×1 / CSS rỗng, hoặc làm hỏng ảnh nếu o.failImages.
+     Ảnh có thể nằm trên raw.githubusercontent (ASSET_BASE cũ) hoặc trong assets/ của app (ASSET_BASE: 'assets/'):
+     ảnh local thì cho tải thật, chỉ chặn khi o.failImages. */
+  await page.send('Fetch.enable', { patterns: [{ urlPattern: '*raw.githubusercontent.com/*' }, { urlPattern: '*/assets/*' }, { urlPattern: '*fonts.googleapis.com/*' }, { urlPattern: '*fonts.gstatic.com/*' }] });
   page.on('Fetch.requestPaused', async p => {
     try {
       if (p.request.url.includes('fonts.g')) {
         await page.send('Fetch.fulfillRequest', { requestId: p.requestId, responseCode: 200, responseHeaders: [{ name: 'Content-Type', value: 'text/css' }], body: Buffer.from('/* fonts giả lập */').toString('base64') });
       } else if (o.failImages) {
         await page.send('Fetch.failRequest', { requestId: p.requestId, errorReason: 'Failed' });
+      } else if (!p.request.url.includes('raw.githubusercontent.com')) {
+        await page.send('Fetch.continueRequest', { requestId: p.requestId });
       } else {
         await page.send('Fetch.fulfillRequest', { requestId: p.requestId, responseCode: 200, responseHeaders: [{ name: 'Content-Type', value: 'image/png' }], body: PNG_1x1 });
       }

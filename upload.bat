@@ -6,16 +6,16 @@ rem ============================================================
 rem  upload.bat - day app "Check-in khi vao ca" len GitHub Pages
 rem  Cach dung: bam dup file nay. Moi lan chay = mot lan cap nhat.
 rem  Co the truyen loi commit:  upload.bat "Sua mau nut"
-rem  Repo: https://github.com/ditruyenhungvuong/checkin-vao-ca
-rem  Web:  https://ditruyenhungvuong.github.io/checkin-vao-ca/
+rem  Repo: https://github.com/ditruyenhungvuong/checkin-vao-ca-V2
+rem  Web:  https://ditruyenhungvuong.github.io/checkin-vao-ca-V2/
 rem ============================================================
 
 rem Luon chay dung thu muc chua file nay, du bam dup tu dau
 cd /d "%~dp0"
 
-set "REPO=ditruyenhungvuong/checkin-vao-ca"
+set "REPO=ditruyenhungvuong/checkin-vao-ca-V2"
 set "BRANCH=main"
-set "PAGES=https://ditruyenhungvuong.github.io/checkin-vao-ca/"
+set "PAGES=https://ditruyenhungvuong.github.io/checkin-vao-ca-V2/"
 set "MSG=Cap nhat app Check-in khi vao ca"
 if not "%~1"=="" set "MSG=%~1"
 
@@ -100,7 +100,7 @@ echo.
 echo [!] KHONG DAY DUOC. Thuong do mot trong ba ly do:
 echo.
 echo     1. Repo chua ton tai tren GitHub:
-echo        Mo https://github.com/new , dat ten "checkin-vao-ca", chon Public,
+echo        Mo https://github.com/new , dat ten "checkin-vao-ca-V2", chon Public,
 echo        KHONG tick "Add a README", bam Create repository, roi chay lai.
 echo.
 echo     2. Tai khoan Git tren may chua co quyen voi repo %REPO%:
